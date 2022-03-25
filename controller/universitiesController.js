@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 const  { 
     getAllUnivirsities,
-    getUniversityByCountry
+    getUniversitiesByCountry
 } = require('../service/universitiesService');
 
 router.get("/",getAllUnivirsities)
 
-router.get("/countries",getUniversityByCountry)
+router.get("/countries",getUniversitiesByCountry)
 
 module.exports = router
