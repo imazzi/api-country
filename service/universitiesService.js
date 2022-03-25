@@ -5,16 +5,15 @@ const url = 'http://universities.hipolabs.com/search';
 
 
 function getAllUnivirsities() {
-  return  axios.get(url);
+    return axios.get(url);
 }
 
-function getUniversitiesByCountry(countryName){
-  return   axios.get(url + '?country=' + countryName);
+function getUniversitiesByCountry(countryName) {
+    return axios.get(url + '?country=' + countryName);
 
 }
-
 
 module.exports = {
-  getAllUnivirsities,
-  getUniversitiesByCountry
+    getAllUnivirsities,
+    getUniversitiesByCountry
 }
