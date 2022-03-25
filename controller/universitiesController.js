@@ -1,12 +1,35 @@
-const express = require('express')
-const router = express.Router()
-const  { 
+const express = require("express");
+const app = express();
+const {
     getAllUnivirsities,
     getUniversitiesByCountry
 } = require('../service/universitiesService');
 
-router.get("/",getAllUnivirsities)
+const getAllUnivirsitiesController = ((req, res) => {
+    getAllUnivirsities().then(response => {
+            res.render("index", { universities: response.data })
+        }).catch((err) => {
+            res.render("error", { errdata: "Can't reach the server" })
+        });
+})
 
-router.get("/countries",getUniversitiesByCountry)
+const getUniversitiesByCountryController = ((req, res) => {
+    if (req.query.country  === '') {
+      res.render("error", { errdata: "country name is undefined" })
+    }
+  
+    getUniversitiesByCountry(req.query.country ).then(response => {
+  
+        res.render("index", { universities: response.data })
+      }).catch(err => {
+        res.render("error", { errdata: "Can't reach the server" })
+    })
+  
+  })
 
-module.exports = router
+
+
+module.exports = {
+    getAllUnivirsitiesController,
+    getUniversitiesByCountryController
+  }

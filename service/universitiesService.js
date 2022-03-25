@@ -1,36 +1,20 @@
-const express = require("express"); 
+const express = require("express");
 const app = express();
 const axios = require('axios');
-const url= 'http://universities.hipolabs.com/search';
-const {htmlToText}= require('html-to-text')
+const url = 'http://universities.hipolabs.com/search';
 
 
-const getAllUnivirsities=((req, res) => {
-    axios.get(url)
-    .then(response=>{
-      res.render("index",{universities: response.data})
-    }).catch((err)=>{
-      res.render("error",{errdata:htmlToText(err.response.data)})
-    });
-})
+function getAllUnivirsities() {
+  return  axios.get(url);
+}
 
-const getUniversitiesByCountry=((req, res) => {
-  if(req.query.country === ''){
-    res.render("error",{errdata:"country name is undefined"})
-  }
+function getUniversitiesByCountry(countryName){
+  return   axios.get(url + '?country=' + countryName);
 
-    axios.get(url+'?country='+req.query.country)    
-    .then(response=>{
+}
 
-      res.render("index",{universities: response.data})
-    }).catch(err => { 
-      console.error(err)
-      res.redirect('/error') 
-  })
 
-})
-
-module.exports ={
-    getAllUnivirsities,
-    getUniversitiesByCountry
+module.exports = {
+  getAllUnivirsities,
+  getUniversitiesByCountry
 }
